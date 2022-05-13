@@ -1,7 +1,13 @@
 import React from 'react';
 
+import Prompts from './components/Prompts';
+
 function App() {
-  return <div className="App">hi</div>;
+  return (
+    <div>
+      <Prompts />
+    </div>
+  );
 }
 
 export default App;
