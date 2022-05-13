@@ -1,36 +1,72 @@
-import { useReducer, useState } from 'react';
+import React, { useState } from "react";
 
-import { Box, Button, Container, FormControl, Grid, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 function Prompts() {
-  const [enteredPrompt, setEnteredPrompt] = useState();
+  const [inputValue, setInputValue] = useState("");
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    // setEnteredPrompt(e.target.value);
-    console.log("input", enteredPrompt);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    console.log("Entered");
   };
 
-  // const data = {
-  //   prompt: "Write a poem about a dog wearing skis",
-  //   temperature: 0.5,
-  //   max_tokens: 64,
-  //   top_p: 1.0,
-  //   frequency_penalty: 0.0,
-  //   presence_penalty: 0.0,
-  // };
+  const handleClick = (event: React.MouseEvent) => {
+    console.log("Submit button clicked!");
+  };
 
-  // fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${process.env.OPENAI_SECRET}`,
-  //   },
-  //   body: JSON.stringify(data),
-  // });
+  const submitHandler = (event: React.FormEvent) => {
+    console.log("Submitted!");
+    event.preventDefault();
+  };
 
   return (
     <Box
+    component="form"
+    onSubmit={submitHandler}
+      sx={{
+        position: "relative",
+        overflow: "hidden",
+        p: "30px",
+        border: "1px",
+        borderRadius: "5px",
+        background: "#F9F5FA center top no-repeat",
+        maxWidth: "800px",
+        margin: "auto",
+        marginTop: "60px",
+      }}
+    >
+      <Typography variant="h6">Open AI</Typography>
+
+      <TextField
+        fullWidth
+        label="Enter prompt"
+        name="prompt"
+        placeholder="Hi, I'm listening ..."
+        multiline
+        rows={4}
+        // value={inputValue}
+        onChange={handleInputChange}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        disableElevation
+        size="medium"
+        sx={{ mt: "10px", alignContent: "flex-end" }}
+        // onClick={handleClick}
+      >
+        Submit
+      </Button>
+      <Typography variant="h6">Responses</Typography>
+
+      {/* <Box
       sx={{
         position: "relative",
         overflow: "hidden",
@@ -45,7 +81,7 @@ function Prompts() {
     >
       <Container>
         <Grid container direction="column" spacing={1}>
-          <form onSubmit={submitHandler}>
+        <Box component="form" onSubmit={submitHandler}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -54,7 +90,8 @@ function Prompts() {
                 placeholder="Hi, I'm listening ..."
                 multiline
                 rows={4}
-                helperText="TextField helper text"
+                // value={enteredPrompt}
+                onChange={inputHandler}
               />
             </Grid>
             <Grid item xs={12} sx={{ alignSelf: "flex-end" }}>
@@ -69,12 +106,13 @@ function Prompts() {
                 Submit
               </Button>
             </Grid>
-          </form>
+          </Box>
           <Grid item xs={12}>
             <Typography variant="h6">Responses</Typography>
           </Grid>
         </Grid>
       </Container>
+    {/* </form> */}
     </Box>
   );
 }
