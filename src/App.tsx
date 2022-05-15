@@ -1,7 +1,13 @@
-import Prompts from './components/Prompts';
+import React from 'react';
 
-function App() {
-  return <Prompts />;
+import AddPrompt from './components/AddPrompt';
+
+function App(props: any) {
+  return (
+    <React.Fragment>
+      <AddPrompt />
+    </React.Fragment>
+  );
 }
 
 export default App;
