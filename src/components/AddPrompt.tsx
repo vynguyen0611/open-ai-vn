@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { Box, Button, Container, Stack, TextField } from '@mui/material';
+import { Box, Button, Container, Stack, TextField, Typography } from '@mui/material';
 
 import { PromptItem } from '../models/promptItem';
 import { AIResponse } from '../models/response';
@@ -9,13 +9,13 @@ import Responses from './Responses';
 function AddPrompt() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [promptList, setPromptList] = useState<PromptItem[]>([]);
-
   const handleClick = async (event: React.MouseEvent) => {
-    console.log("Submit button clicked!");
     event.preventDefault();
 
+    const enteredText = inputRef.current?.value;
+
     const data = {
-      prompt: inputRef.current?.value,
+      prompt: enteredText,
       temperature: 0.5,
       max_tokens: 64,
       top_p: 1.0,
@@ -25,7 +25,7 @@ function AddPrompt() {
 
     async function postData(data = {}): Promise<AIResponse> {
       const response = await fetch(
-        "https://api.openai.com/v1/engines/text-ada-001/completions",
+        "https://api.openai.com/v1/engines/text-curie-001/completions",
         {
           method: "POST",
           headers: {
@@ -45,7 +45,7 @@ function AddPrompt() {
     setPromptList((prevState: PromptItem[]) => {
       return prevState.concat({
         id: responseData.id,
-        prompt: inputRef.current?.value || "",
+        prompt: enteredText || "",
         response: responseData.choices[0].text,
         created: responseData.created,
       });
@@ -64,25 +64,29 @@ function AddPrompt() {
       sx={{
         position: "relative",
         overflow: "hidden",
-        p: "30px",
-        border: "1px",
+        p: { xs: "4px", md: "20px" },
+        border: "0.5rem",
         borderRadius: "5px",
         background: "#F9F5FA center top no-repeat",
         maxWidth: "800px",
+        minHeight: "630px",
         margin: "auto",
-        marginTop: "60px",
+        marginTop: { xs: "10px", md: "20px" },
       }}
     >
-      <Container>
-        <Stack spacing={3}>
+      <Container sx={{ pt: "10px" }}>
+        <Stack spacing={2}>
+          <Typography variant="h6" align="center">
+            Ask me!
+          </Typography>
           <TextField
             fullWidth
             label="Enter prompt"
-            sx={{ backgroundColor: "#fff" }}
+            sx={{ backgroundColor: "#ffffff" }}
             name="prompt"
             placeholder="Hi, I'm listening ..."
             multiline
-            rows={4}
+            rows={3}
             color="secondary"
             focused
             inputRef={inputRef}
@@ -92,7 +96,7 @@ function AddPrompt() {
             variant="contained"
             disableElevation
             size="medium"
-            sx={{ mt: "10px", alignSelf: "flex-end" }}
+            sx={{ alignSelf: "flex-end" }}
             onClick={handleClick}
           >
             Submit

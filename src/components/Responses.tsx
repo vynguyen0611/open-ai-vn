@@ -2,41 +2,50 @@ import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
 function Responses(props: any) {
   return (
-    <Stack spacing={3} sx={{ py: 2 }}>
-      <Typography variant="body1" fontSize={"20px"} color="#1976d2">
+    <Stack spacing={2} sx={{ py: 2 }}>
+      <Typography variant="body1" color="#1976d2">
         Responses
       </Typography>
       {props.prompt.map((item: any) => {
         return (
-          <Card key={item.id} sx={{ px: "10px", backgroundColor: "#DBE9DD" }}>
+          <Card
+            key={item.id}
+            sx={{ px: { xs: "2px", md: "8px" }, backgroundColor: "#DBE9DD" }}
+          >
             <CardContent>
-              <Stack py={1}>
-                <Grid container>
+              <Stack py={0.5}>
+                <Grid container spacing={2}>
                   <Grid item xs={2}>
-                    <Typography variant="subtitle1" color="black">
+                    <Typography variant="body2" color="black">
                       Prompt
                     </Typography>
                   </Grid>
                   <Grid item xs={10}>
                     <Typography
-                      variant="subtitle1"
+                      variant="body2"
                       fontStyle="italic"
                       align="justify"
+                      pl="20px"
                     >
                       {item.prompt}
                     </Typography>
                   </Grid>
                 </Grid>
               </Stack>
-              <Stack py={1}>
-                <Grid container>
+              <Stack py={0.5}>
+                <Grid container spacing={2}>
                   <Grid item xs={2}>
-                    <Typography variant="body1" fontStyle="bold" color="black">
+                    <Typography variant="body2" fontStyle="bold" color="black">
                       Response
                     </Typography>
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography color="#274FD2" align="justify">
+                    <Typography
+                      color="#274FD2"
+                      align="justify"
+                      variant="body2"
+                      pl="20px"
+                    >
                       {item.response}
                     </Typography>
                   </Grid>
