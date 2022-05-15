@@ -14,6 +14,11 @@ function AddPrompt() {
 
     const enteredText = inputRef.current?.value;
 
+    if (enteredText?.trim().length === 0) {
+      alert("How can I help you?");
+      return;
+    }
+
     const data = {
       prompt: enteredText,
       temperature: 0.5,
@@ -69,7 +74,7 @@ function AddPrompt() {
         borderRadius: "5px",
         background: "#F9F5FA center top no-repeat",
         maxWidth: "800px",
-        minHeight: "630px",
+        minHeight: "650px",
         margin: "auto",
         marginTop: { xs: "10px", md: "20px" },
       }}
