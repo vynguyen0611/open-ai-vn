@@ -1,68 +1,43 @@
-import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
+import { useContext } from 'react';
 
-function Responses(props: any) {
+import { Box, Card, CardContent, Container, Grid, Stack, Typography } from '@mui/material';
+
+import { PromptsContext } from '../store/prompts-context';
+import Response from './Response';
+
+const Responses: React.FC = () => {
+  const promptCtx = useContext(PromptsContext);
+
   return (
-    <Stack>
-      <Typography variant="body1" color="#1976d2">
-        Responses
-      </Typography>
-      {props.prompt.map((item: any) => {
-        return (
-          <Stack spacing={2} sx={{ py: 2 }}>
-            <Card
-              key={item.id}
-              sx={{ px: { xs: "2px", md: "8px" }, backgroundColor: "#DBE9DD" }}
-            >
-              <CardContent>
-                <Stack py={0.5}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={2}>
-                      <Typography variant="body2" color="black">
-                        Prompt
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Typography
-                        variant="body2"
-                        fontStyle="italic"
-                        align="justify"
-                        pl="20px"
-                      >
-                        {item.prompt}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Stack>
-                <Stack py={0.5}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={2}>
-                      <Typography
-                        variant="body2"
-                        fontStyle="bold"
-                        color="black"
-                      >
-                        Response
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Typography
-                        color="#274FD2"
-                        align="justify"
-                        variant="body2"
-                        pl="20px"
-                      >
-                        {item.response}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Stack>
-        );
-      })}
-    </Stack>
+    <Box
+      sx={{
+        position: "relative",
+        overflow: "hidden",
+        p: { xs: "4px", md: "20px" },
+        border: "0.5rem",
+        borderBottomLeftRadius: "6px",
+        borderBottomRightRadius: "6px",
+        background: "#F9F5FA center top no-repeat",
+        maxWidth: "800px",
+        minHeight: "500px",
+        margin: "auto",
+      }}
+    >
+      <Container>
+        {promptCtx.items.map((item: any) => {
+          return (
+            <Stack spacing={1}>
+              <Response
+                key={item.id}
+                prompt={item.prompt}
+                response={item.response}
+              />
+            </Stack>
+          );
+        })}
+      </Container>
+    </Box>
   );
-}
+};
 
 export default Responses;

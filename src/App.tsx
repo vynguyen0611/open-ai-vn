@@ -1,12 +1,13 @@
-import React from 'react';
-
 import AddPrompt from './components/AddPrompt';
+import Responses from './components/Responses';
+import PromptsContextProvider from './store/prompts-context';
 
-function App(props: any) {
+function App() {
   return (
-    <React.Fragment>
+    <PromptsContextProvider>
       <AddPrompt />
-    </React.Fragment>
+      <Responses />
+    </PromptsContextProvider>
   );
 }
 

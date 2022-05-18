@@ -1,14 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import { Box, Button, Container, Stack, TextField, Typography } from '@mui/material';
 
-import { PromptItem } from '../models/promptItem';
-import { AIResponse } from '../models/response';
-import Responses from './Responses';
+import AIResponse from '../models/response';
+import { PromptsContext } from '../store/prompts-context';
 
 function AddPrompt() {
+  const promptsCtx = useContext(PromptsContext);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [promptList, setPromptList] = useState<PromptItem[]>([]);
+  const [responseTitle, setResponseTitle] = useState(false);
+
   const handleClick = async (event: React.MouseEvent) => {
     event.preventDefault();
 
@@ -43,25 +44,18 @@ function AddPrompt() {
       return response.json();
     }
 
-    console.log(data);
-
     const responseData = await postData(data);
+    setResponseTitle(true);
 
-    setPromptList((prevState: PromptItem[]) => {
-      return prevState.concat({
-        id: responseData.id,
-        prompt: enteredText || "",
-        response: responseData.choices[0].text,
-        created: responseData.created,
-      });
-    });
+    promptsCtx.addPrompt(
+      responseData.id,
+      enteredText || "",
+      responseData.choices[0].text,
+      responseData.created
+    );
 
     inputRef.current!.value = "";
   };
-
-  const sortedList = promptList.sort(function (a: any, b: any) {
-    return b.created - a.created;
-  });
 
   return (
     <Box
@@ -71,10 +65,10 @@ function AddPrompt() {
         overflow: "hidden",
         p: { xs: "4px", md: "20px" },
         border: "0.5rem",
-        borderRadius: "5px",
+        borderTopLeftRadius: "6px",
+        borderTopRightRadius: "6px",
         background: "#F9F5FA center top no-repeat",
         maxWidth: "800px",
-        minHeight: "650px",
         margin: "auto",
         marginTop: { xs: "10px", md: "20px" },
       }}
@@ -107,7 +101,11 @@ function AddPrompt() {
             Submit
           </Button>
         </Stack>
-        <Responses prompt={sortedList} />
+        {responseTitle === true && (
+          <Typography variant="body1" color="#1976d2">
+            Responses
+          </Typography>
+        )}
       </Container>
     </Box>
   );
