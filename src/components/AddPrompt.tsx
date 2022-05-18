@@ -102,7 +102,7 @@ function AddPrompt() {
           </Button>
         </Stack>
         {responseTitle === true && (
-          <Typography variant="body1" color="#1976d2">
+          <Typography variant="body1" color="#1976d2" pt={1}>
             Responses
           </Typography>
         )}

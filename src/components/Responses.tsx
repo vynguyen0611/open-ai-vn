@@ -13,7 +13,7 @@ const Responses: React.FC = () => {
       sx={{
         position: "relative",
         overflow: "hidden",
-        p: { xs: "4px", md: "20px" },
+        px: { xs: "4px", md: "20px" },
         border: "0.5rem",
         borderBottomLeftRadius: "6px",
         borderBottomRightRadius: "6px",
