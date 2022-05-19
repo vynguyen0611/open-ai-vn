@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { Box, Card, CardContent, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack } from '@mui/material';
 
 import { PromptsContext } from '../store/prompts-context';
 import Response from './Response';
@@ -24,14 +24,10 @@ const Responses: React.FC = () => {
       }}
     >
       <Container>
-        {promptCtx.items.map((item: any) => {
+        {promptCtx.items.map((item, index) => {
           return (
-            <Stack spacing={1}>
-              <Response
-                key={item.id}
-                prompt={item.prompt}
-                response={item.response}
-              />
+            <Stack spacing={1} key={index}>
+              <Response prompt={item.prompt} response={item.response} />
             </Stack>
           );
         })}

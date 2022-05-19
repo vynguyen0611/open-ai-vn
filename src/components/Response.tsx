@@ -1,3 +1,5 @@
+import { StringLiteralLike } from 'typescript';
+
 import { Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 
 const Response: React.FC<{

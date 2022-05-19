@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import PromptItem from '../models/promptItem';
-import AIResponse from '../models/response';
 
 type PromptContextObj = {
   items: PromptItem[];

@@ -2,8 +2,20 @@ import React, { useContext, useRef, useState } from 'react';
 
 import { Box, Button, Container, Stack, TextField, Typography } from '@mui/material';
 
-import AIResponse from '../models/response';
 import { PromptsContext } from '../store/prompts-context';
+
+export type AIResponse = {
+  id: string;
+  object: string;
+  created: number;
+  model: string;
+  choices: {
+    text: string;
+    index: number;
+    logprobs: null;
+    finish_reason: string;
+  }[];
+};
 
 function AddPrompt() {
   const promptsCtx = useContext(PromptsContext);
